@@ -131,7 +131,7 @@ export default function Home() {
             <div className="sc-tag">Institutions · EdTech</div>
           </div>
           <div className="sc-tile">
-            <div className="sc-ico"><i className="ti ti-device-mobile-signal"></i></div>
+            <div className="sc-ico"><i className="ti ti-antenna-bars-5"></i></div>
             <div className="sc-name">Telecom</div>
             <div className="sc-tag">Carriers · ISPs</div>
           </div>

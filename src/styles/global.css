@@ -12,7 +12,7 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
 /* NAV */
-.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:58px;background:rgba(7,9,15,0.93);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav{position:sticky;top:0;z-index:1100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:58px;background:rgba(7,9,15,0.93);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:.03em;color:#fff;cursor:pointer;text-decoration:none;}
 .nav-logo .logo-v{color:var(--accent);}
 .nav-links{display:flex;gap:1.75rem;}
@@ -176,3 +176,203 @@ body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-
 .footer-hr{border:none;border-top:1px solid var(--border-soft);margin-bottom:1.25rem;}
 .footer-legal{font-size:11px;color:var(--dim);line-height:1.8;}
 .footer-legal strong{color:rgba(228,230,239,0.28);}
+
+
+
+/* =====================================================
+   🍔 HAMBURGER BUTTON (base — always defined)
+   ===================================================== */
+.hamburger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  z-index: 1102;
+  position: relative;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =====================================================
+   📱 MOBILE MENU DRAWER (base — always defined)
+   ===================================================== */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 75%;
+  max-width: 320px;
+  background: rgba(7, 9, 15, 0.98);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 4px;
+  z-index: 1000;
+  padding: 75px 30px 40px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+}
+.mobile-menu.show { transform: translateX(0); }
+
+.mobile-menu a {
+  color: rgba(228, 230, 239, 0.75);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  padding: 14px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+.mobile-menu a:hover,
+.mobile-menu a.on { color: #fff; padding-left: 8px; }
+.mobile-menu a:last-of-type { border-bottom: none; }
+
+/* Backdrop */
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.mobile-menu-backdrop.show { opacity: 1; pointer-events: all; }
+
+/* Lock body scroll when menu is open */
+body.menu-open { overflow: hidden; }
+
+/* =====================================================
+   🖥️ DESKTOP (> 900px)
+   ===================================================== */
+@media (min-width: 901px) {
+  .hamburger,
+  .mobile-menu,
+  .mobile-menu-backdrop { display: none !important; }
+
+  .nav-links {
+    display: flex !important;
+    align-items: center;
+    gap: 32px;
+  }
+  .btn-nav { display: inline-flex; }
+}
+
+/* =====================================================
+   📱 MOBILE (≤ 900px) — ALL RESPONSIVE OVERRIDES
+   ===================================================== */
+@media (max-width: 900px) {
+
+  /* --- NAV --- */
+  .nav { padding: 15px 20px; }
+  .nav-links { display: none !important; }
+  .btn-nav { display: none !important; }
+  .hamburger { display: flex; }
+  .mobile-menu { display: flex; }
+  .mobile-menu-backdrop { display: block; }
+
+  /* --- HERO --- */
+  .hero { padding: 80px 20px 60px; min-height: auto; }
+  .hero-h1 { font-size: 42px; line-height: 1.15; }
+  .hero-pitch { font-size: 15px; }
+  .hero-actions { flex-direction: column; gap: 12px; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+
+  /* --- FORMULA --- */
+  .formula { grid-template-columns: 1fr; gap: 30px; padding: 40px 20px; }
+  .f-col { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+  .f-col:last-child { border-bottom: none; }
+  .f-letter { font-size: 60px; }
+
+  /* --- SECTIONS --- */
+  .section { padding: 50px 20px; }
+  .sh2 { font-size: 30px; }
+  .ssub { font-size: 15px; }
+
+  /* --- BENTO --- */
+  .bento { grid-template-columns: 1fr; gap: 1px; }
+
+  /* --- SECTOR TILES --- */
+  .sc-tiles { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  /* --- WHY --- */
+  .why-grid { grid-template-columns: 1fr; gap: 1px; }
+
+  /* --- CTA --- */
+  .cta-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px 20px;
+    text-align: left;
+  }
+  .cta-h { font-size: 24px; }
+
+  /* --- FOOTER --- */
+  .footer { padding: 40px 20px 25px; }
+  .footer-top { flex-direction: column; gap: 25px; align-items: flex-start; }
+  .footer-nav { flex-wrap: wrap; gap: 15px; }
+  .footer-legal { font-size: 11px; line-height: 1.6; }
+
+  /* --- PAGE HERO --- */
+  .pg-hero { padding: 60px 20px 40px; }
+  .pg-h1 { font-size: 34px; line-height: 1.15; }
+  .pg-sub { font-size: 15px; }
+
+  /* --- ABOUT --- */
+  .mv-grid { grid-template-columns: 1fr; gap: 1px; }
+  .val-strip { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .reg-row { grid-template-columns: 1fr; gap: 8px; }
+
+  /* --- SERVICES --- */
+  .svc-row { grid-template-columns: 1fr; }
+  .svc-l { flex-direction: row; align-items: center; border-right: none; border-bottom: 1px solid var(--border); }
+  .svc-name { font-size: 15px; }
+  .proc-grid { grid-template-columns: 1fr; gap: 1px; }
+
+  /* --- SECTORS --- */
+  .sector-grid { grid-template-columns: 1fr; gap: 1px; }
+  .scd { padding: 25px 20px; }
+
+  /* --- CONTACT --- */
+  .contact-wrap { grid-template-columns: 1fr; gap: 1px; }
+  .c-left, .c-right { padding: 25px 20px; }
+  .fg { grid-template-columns: 1fr; gap: 12px; }
+  .fd.full { grid-column: span 1; }
+}
+
+/* =====================================================
+   📱 SMALL PHONES (≤ 480px)
+   ===================================================== */
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 34px; }
+  .sh2 { font-size: 26px; }
+  .pg-h1 { font-size: 28px; }
+  .sc-tiles { grid-template-columns: 1fr; }
+  .val-strip { grid-template-columns: 1fr; }
+  .f-letter { font-size: 50px; }
+  .nav-logo { font-size: 18px; }
+}

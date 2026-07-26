@@ -17,6 +17,29 @@ body {
     radial-gradient(680px 520px at 100% 2%, rgba(107, 138, 255, 0.05), transparent 60%);
   background-attachment: fixed;
 }
+
+/* ---- vertical rhythm: give the type room to breathe ------------------------
+   The base sets 14px / line-height 1.5, which reads congested (text feels
+   "pushed down" in a cramped line box). Loosen leading everywhere — this adds
+   height, not width, so the grid layouts are untouched — and nudge the base
+   size up one point. */
+body { font-size: 15px; line-height: 1.65; }
+
+.hero-h1 { line-height: 1.12; }
+.sh2     { line-height: 1.24; }
+.pg-h1   { line-height: 1.16; }
+.cta-h   { line-height: 1.3; }
+.f-label, .kicker, .pg-kicker { line-height: 1.4; }
+
+/* body copy — a touch more leading so paragraphs aren't dense */
+.hero-pitch, .pg-sub { font-size: 15.5px; line-height: 1.9; }
+.ssub, .mv-text      { line-height: 1.9; }
+.f-desc, .bc-body, .svc-desc, .scd-desc, .why-sub, .val-desc,
+.proc-desc, .ci-sub, .footer-legal, .form-sub { line-height: 1.85; }
+
+/* small labels/tags: keep them from clipping tight */
+.sc-name, .bc-title, .svc-name, .scd-title, .why-label { line-height: 1.35; }
+.sc-tag, .svc-sub, .scd-sub, .uc-pill, .svc-pill { line-height: 1.5; }
 ::selection { background: rgba(77, 255, 160, 0.26); color: #fff; }
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
 

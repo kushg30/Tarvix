@@ -1,0 +1,161 @@
+/* =============================================================================
+   polish.css — refinement layer, loaded AFTER global.css.
+   Additive/override only. Adds depth, motion and hover feedback while keeping
+   the existing minimal, technical aesthetic. Drop the one import to revert.
+   ============================================================================= */
+
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --grad-accent: linear-gradient(130deg, #eafff4 0%, var(--accent) 55%, var(--blue) 120%);
+  --glow-accent: 0 0 0 1px var(--accent-border), 0 18px 44px -18px rgba(77, 255, 160, 0.35);
+}
+
+/* ---- global finish ---------------------------------------------------------*/
+body {
+  background-image:
+    radial-gradient(760px 520px at 8% -6%, rgba(77, 255, 160, 0.05), transparent 60%),
+    radial-gradient(680px 520px at 100% 2%, rgba(107, 138, 255, 0.05), transparent 60%);
+  background-attachment: fixed;
+}
+::selection { background: rgba(77, 255, 160, 0.26); color: #fff; }
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
+
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#1c5c3e, #12233f);
+  border-radius: 20px; border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ---- nav: condense on scroll + animated underlines -------------------------*/
+.nav { transition: height .3s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease); }
+.nav.scrolled {
+  height: 50px;
+  background: rgba(7, 9, 15, 0.97);
+  box-shadow: 0 12px 34px -20px rgba(0, 0, 0, 0.9);
+  border-bottom-color: var(--accent-border);
+}
+.nav-links a { position: relative; padding: 5px 0; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -1px; height: 1.5px;
+  background: var(--grad-accent); transition: right .3s var(--ease);
+}
+.nav-links a:hover::after, .nav-links a.on::after { right: 0; }
+.nav-logo .logo-v { text-shadow: 0 0 16px rgba(77, 255, 160, 0.55); }
+.btn-nav { transition: transform .15s var(--ease), box-shadow .25s var(--ease); }
+.btn-nav:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -12px rgba(255, 255, 255, 0.4); }
+
+/* ---- buttons: sheen + glow -------------------------------------------------*/
+.btn-primary, .submit-btn {
+  position: relative; overflow: hidden; isolation: isolate;
+  box-shadow: 0 10px 26px -12px rgba(77, 255, 160, 0.6);
+  transition: transform .15s var(--ease), box-shadow .25s var(--ease);
+}
+.btn-primary::after, .submit-btn::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.6) 50%, transparent 80%);
+  transform: translateX(-120%); transition: transform .6s var(--ease);
+}
+.btn-primary:hover, .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -12px rgba(77, 255, 160, 0.7); }
+.btn-primary:hover::after, .submit-btn:hover::after { transform: translateX(120%); }
+.btn-secondary { transition: border-color .2s, color .2s, transform .15s var(--ease), background .2s; }
+.btn-secondary:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.03); }
+
+/* ---- hero: living ambience -------------------------------------------------*/
+.hero-glow { animation: heroDrift 18s var(--ease) infinite alternate; }
+@keyframes heroDrift { to { transform: translate(24px, 18px) scale(1.06); } }
+.hero-dot-grid { animation: dotFade 7s ease-in-out infinite alternate; }
+@keyframes dotFade { from { opacity: .22; } to { opacity: .40; } }
+.hero { position: relative; }
+.hero::after {
+  content: ""; position: absolute; left: 3rem; right: 3rem; bottom: -1px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-border), transparent);
+}
+
+/* ---- formula: give the letters presence ------------------------------------*/
+.f-col { transition: background .3s var(--ease); position: relative; }
+.f-col:hover { background: rgba(255, 255, 255, 0.015); }
+.f-X { text-shadow: 0 0 30px rgba(77, 255, 160, 0.4); }
+.f-letter { transition: transform .3s var(--ease); }
+.f-col:hover .f-letter { transform: translateY(-3px); }
+
+/* ---- seamless-grid cards: brighten + inset accent (no transform) -----------
+   bento / why / services rows / sector cards / mission-vision / values / process
+   share 1px borders, so lifting would tear the grid. Light them instead.       */
+.bc, .why-cell, .svc-l, .svc-r, .scd, .mv-cell, .val-c, .proc-c {
+  position: relative; transition: background .3s var(--ease);
+}
+.bc::before, .scd::before, .why-cell::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 2px;
+  background: var(--grad-accent); opacity: 0; transition: opacity .3s var(--ease);
+}
+.bc:hover, .why-cell:hover, .scd:hover, .mv-cell:hover, .val-c:hover, .proc-c:hover {
+  background: rgba(255, 255, 255, 0.028);
+}
+.svc-row:hover .svc-l, .svc-row:hover .svc-r { background: rgba(255, 255, 255, 0.02); }
+.bc:hover::before, .scd:hover::before, .why-cell:hover::before { opacity: .85; }
+
+/* icon tiles: subtle pop */
+.bc-icon, .svc-iw, .scd-iw, .ci-iw { transition: transform .3s var(--ease); }
+.bc:hover .bc-icon, .scd:hover .scd-iw { transform: translateY(-2px) scale(1.06); }
+
+/* ---- standalone tiles (own border + gap): real lift ------------------------*/
+.sc-tile, .reg-c {
+  position: relative; overflow: hidden;
+  transition: transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease), background .28s var(--ease);
+}
+.sc-tile::before {
+  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s var(--ease);
+  background: radial-gradient(220px circle at 50% 0%, rgba(77, 255, 160, 0.10), transparent 70%);
+}
+.sc-tile:hover, .reg-c:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-border);
+  box-shadow: var(--glow-accent);
+  background: rgba(255, 255, 255, 0.02);
+}
+.sc-tile:hover::before { opacity: 1; }
+.sc-tile:hover .sc-ico { color: var(--accent); }
+.sc-ico { transition: color .28s var(--ease); }
+
+/* ---- pills: crisper --------------------------------------------------------*/
+.svc-pill, .uc-pill { transition: color .2s, border-color .2s, background .2s; }
+.svc-pill:hover, .uc-pill:hover { color: var(--text); border-color: var(--accent-border); background: var(--accent-dim); }
+
+/* ---- CTA band: depth + sheen ----------------------------------------------*/
+.cta-band {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(600px 240px at 15% 0%, rgba(77, 255, 160, 0.08), transparent 65%),
+    var(--surface);
+}
+.cta-band::before {
+  content: ""; position: absolute; inset: 0; opacity: .5;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, #000, transparent 75%);
+  pointer-events: none;
+}
+.cta-band > * { position: relative; z-index: 1; }
+
+/* ---- contact form: warmer focus -------------------------------------------*/
+.fd input:focus, .fd select:focus, .fd textarea:focus {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px rgba(77, 255, 160, 0.08);
+}
+
+/* ---- quote box shimmer -----------------------------------------------------*/
+.quote-box { transition: border-color .3s var(--ease), box-shadow .3s var(--ease); }
+.quote-box:hover { border-color: var(--accent-border); box-shadow: var(--glow-accent); }
+
+/* ---- page-hero polish ------------------------------------------------------*/
+.pg-hero-dots { animation: dotFade 7s ease-in-out infinite alternate; }
+.pg-h1 .ac, .hero-h1 .g { }
+
+/* ---- reduced motion --------------------------------------------------------*/
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -5,6 +5,7 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const isActive = (path) => (pathname === path ? 'on' : '');
   const closeMenu = () => setMenuOpen(false);
@@ -30,9 +31,17 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
+  // Condense the nav once the page is scrolled a little
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <nav className="nav">
+      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
         <Link className="nav-logo" to="/" onClick={closeMenu}>
           Tar<span className="logo-v">V</span>ix
         </Link>

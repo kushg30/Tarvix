@@ -53,6 +53,7 @@ export default function Navbar() {
           <Link className={isActive('/services')} to="/services">Services</Link>
           <Link className={isActive('/sectors')} to="/sectors">Sectors</Link>
           <Link className={isActive('/contact')} to="/contact">Contact</Link>
+          <Link className={isActive('/ai')} to="/ai">AI Lab</Link>
         </div>
 
         {/* Desktop CTA Button */}
@@ -86,6 +87,7 @@ export default function Navbar() {
         <Link className={isActive('/services')} to="/services" onClick={closeMenu}>Services</Link>
         <Link className={isActive('/sectors')} to="/sectors" onClick={closeMenu}>Sectors</Link>
         <Link className={isActive('/contact')} to="/contact" onClick={closeMenu}>Contact</Link>
+        <Link className={isActive('/ai')} to="/ai" onClick={closeMenu}>AI Lab</Link>
         <button
           className="btn-primary"
           onClick={() => { navigate('/contact'); closeMenu(); }}

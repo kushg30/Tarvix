@@ -14,6 +14,7 @@ export default function Footer() {
           <Link to="/services">Services</Link>
           <Link to="/sectors">Sectors</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/ai">AI Lab</Link>
         </div>
       </div>
       <hr className="footer-hr" />
